@@ -76,24 +76,24 @@ end
 describe Day01 do
   describe ".part1" do
     it "returns the right value for the test file 1" do
-      input = File.read("day_01_test_1.txt")
+      input = File.read("inputs/day_01_test_1.txt")
       expect(Day01.new(input).part1).to eq(24_000)
     end
 
     it "returns the right value for the test file 2" do
-      input = File.read("day_01_test_2.txt")
+      input = File.read("inputs/day_01_test_2.txt")
       expect(Day01.new(input).part1).to eq(72_240)
     end
   end
 
   describe ".part2" do
     it "returns the right value for the test file 1" do
-      input = File.read("day_01_test_1.txt")
+      input = File.read("inputs/day_01_test_1.txt")
       expect(Day01.new(input).part2).to eq(45_000)
     end
 
     it "returns the right value for the test file 2" do
-      input = File.read("day_01_test_2.txt")
+      input = File.read("inputs/day_01_test_2.txt")
       expect(Day01.new(input).part2).to eq(210_957)
     end
   end
