@@ -1,36 +1,56 @@
 require "pry"
 require "rspec/autorun"
 
-class Choice
-  def initialize(choice)
-    @choice = choice
-  end
-end
+# https://adventofcode.com/2022/day/2
 
 # This class design a round of a Rock, Paper, Scissors game.
 class Round
   attr_reader :player1, :player2, :input
 
-  # SHAPE_PLAYER1 = { "X" => "Rock", "Y" => "Paper", "Z" => "Scissors" }.freeze
-  # SHAPE_PLAYER2 = { "A" => "Rock", "B" => "Paper", "C" => "Scissors" }.freeze
+  OUTCOMES = {
+    "A X": 3,
+    "B Y": 3,
+    "C Z": 3,
+    "A Z": 0,
+    "C Y": 0,
+    "B X": 0,
+    "A Y": 6,
+    "B Z": 6,
+    "C X": 6
+  }.freeze
 
-  SHAPE = { "X" => 1, "Y" => 2, "Z" => 3 }.freeze
+  OUTCOMES_PART_2 = {
+    "X" => {
+      "A" => "Z",
+      "B" => "X",
+      "C" => "Y"
+    },
+    "Y" => {
+      "A" => "X",
+      "B" => "Y",
+      "C" => "Z"
+    },
+    "Z" => {
+      "A" => "Y",
+      "B" => "Z",
+      "C" => "X"
+    }
+  }.freeze
 
-  def initialize(input)
-    @input = input
+  SCORE_SHAPE = { "X" => 1, "Y" => 2, "Z" => 3 }.freeze
+
+  def initialize(input, part2: false)
     @player1, @player2 = input.split(" ")
+    @player2 = OUTCOMES_PART_2[player2][player1] if part2
+    @input = "#{@player1} #{@player2}"
   end
 
   def outcome
-    return 3 if input == "A X" || input == "B Y" || input == "C Z"
-    # return 3 if player1 == player2
-    return 0 if input == "A Z" || input == "C Y" || input == "B X"
-
-    6
+    OUTCOMES[input.to_sym]
   end
 
   def score
-    outcome + SHAPE[player2]
+    outcome + SCORE_SHAPE[player2]
   end
 end
 
@@ -47,11 +67,13 @@ class Day02
     input.each { |round| score += Round.new(round).score }
     score
   end
-end
 
-# Rock defeats Scissors
-# Scissors defeats Paper
-# Paper defeats Rock
+  def part2
+    score = 0
+    input.each { |round| score += Round.new(round, part2: true).score }
+    score
+  end
+end
 
 describe Round do
   describe ".outcome" do
@@ -64,9 +86,6 @@ describe Round do
 
       round = Round.new("C Z")
       expect(round.outcome).to eq(3)
-
-      # round = Round.new("Rock Rock")
-      # expect(round.outcome).to eq(3)
     end
 
     it "computes the outcome of a round if it is a loss" do
@@ -81,13 +100,13 @@ describe Round do
     end
 
     it "computes the outcome of a round if it is a win" do
-      round = Round.new("Z A")
+      round = Round.new("A Y")
       expect(round.outcome).to eq(6)
 
-      round = Round.new("Y C")
+      round = Round.new("B Z")
       expect(round.outcome).to eq(6)
 
-      round = Round.new("X B")
+      round = Round.new("C X")
       expect(round.outcome).to eq(6)
     end
   end
@@ -121,21 +140,16 @@ describe Day02 do
       expect(Day02.new(input).part1).to eq(15_337)
     end
   end
+
+  describe ".part2" do
+    it "returns the right value for the test file 1" do
+      input = File.read("inputs/day_02_test_1.txt")
+      expect(Day02.new(input).part2).to eq(12)
+    end
+
+    it "returns the right value for the test file 2" do
+      input = File.read("inputs/day_02_test_2.txt")
+      expect(Day02.new(input).part2).to eq(11_696)
+    end
+  end
 end
-
-# A for Rock
-# B for Paper
-# C for Scissors
-
-# X for Rock
-# Y for Paper
-# Z for Scissors
-
-# rounds
-
-# The score for a single round is the score for the shape you selected
-# (1 for Rock, 2 for Paper, and 3 for Scissors)
-# plus the score for the outcome of the round
-# (0 if you lost, 3 if the round was a draw, and 6 if you won).
-
-# score = shape + outcome
