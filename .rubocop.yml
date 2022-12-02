@@ -5,3 +5,5 @@ Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
   ConsistentQuotesInMultiline: false
+Metrics/BlockLength:
+  Enabled: false
