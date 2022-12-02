@@ -1,6 +1,12 @@
 require "pry"
 require "rspec/autorun"
 
+class Choice
+  def initialize(choice)
+    @choice = choice
+  end
+end
+
 # This class design a round of a Rock, Paper, Scissors game.
 class Round
   attr_reader :player1, :player2, :input
@@ -17,6 +23,7 @@ class Round
 
   def outcome
     return 3 if input == "A X" || input == "B Y" || input == "C Z"
+    # return 3 if player1 == player2
     return 0 if input == "A Z" || input == "C Y" || input == "B X"
 
     6
@@ -57,6 +64,9 @@ describe Round do
 
       round = Round.new("C Z")
       expect(round.outcome).to eq(3)
+
+      # round = Round.new("Rock Rock")
+      # expect(round.outcome).to eq(3)
     end
 
     it "computes the outcome of a round if it is a loss" do
