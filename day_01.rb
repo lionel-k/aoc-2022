@@ -55,21 +55,16 @@ class Day01
   attr_reader :input
 
   def initialize(input)
-    @input = input
+    @input =
+      input.split("\n\n").map { |group| group.split("\n").map(&:to_i).sum }
   end
 
   def part1
-    carried_calories.max
+    input.max
   end
 
   def part2
-    carried_calories.max(3).sum
-  end
-
-  private
-
-  def carried_calories
-    input.split("\n\n").map { |group| group.split("\n").map(&:to_i).sum }
+    input.max(3).sum
   end
 end
 
