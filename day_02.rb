@@ -11,16 +11,13 @@ class Round
   WIN_SCORE = 6
   DRAW_SCORE = 3
 
-  MAPPING_SHAPE_PLAYER1 = {
-    "A" => "rock",
-    "B" => "paper",
-    "C" => "scissors"
-  }.freeze
-
-  MAPPING_SHAPE_PLAYER2 = {
-    "X" => "rock",
-    "Y" => "paper",
-    "Z" => "scissors"
+  MAPPING_SHAPE = {
+    "A" => :rock,
+    "B" => :paper,
+    "C" => :scissors,
+    "X" => :rock,
+    "Y" => :paper,
+    "Z" => :scissors
   }.freeze
 
   OUTCOMES = {
@@ -57,9 +54,9 @@ class Round
 
   def initialize(input, part2: false)
     @player1, @player2 = input.split(" ")
-    @player1 = MAPPING_SHAPE_PLAYER1[player1]
+    @player1 = MAPPING_SHAPE[player1].to_s
     @player2 =
-      part2 ? PLAYER2_PART_2[player2][player1] : MAPPING_SHAPE_PLAYER2[player2]
+      part2 ? PLAYER2_PART_2[player2][player1] : MAPPING_SHAPE[player2].to_s
     @input = "#{@player1} #{@player2}"
   end
 
