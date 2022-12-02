@@ -92,40 +92,40 @@ class Day02
 end
 
 describe Round do
-  # describe ".outcome" do
-  #   it "computes the outcome of a round if it is a draw" do
-  #     round = Round.new("A X")
-  #     expect(round.outcome).to eq(3)
+  describe ".outcome" do
+    it "computes the outcome of a round if it is a draw" do
+      round = Round.new("A X")
+      expect(round.outcome).to eq(3)
 
-  #     round = Round.new("B Y")
-  #     expect(round.outcome).to eq(3)
+      round = Round.new("B Y")
+      expect(round.outcome).to eq(3)
 
-  #     round = Round.new("C Z")
-  #     expect(round.outcome).to eq(3)
-  #   end
+      round = Round.new("C Z")
+      expect(round.outcome).to eq(3)
+    end
 
-  #   it "computes the outcome of a round if it is a loss" do
-  #     round = Round.new("A Z")
-  #     expect(round.outcome).to eq(0)
+    it "computes the outcome of a round if it is a loss" do
+      round = Round.new("A Z")
+      expect(round.outcome).to eq(0)
 
-  #     round = Round.new("C Y")
-  #     expect(round.outcome).to eq(0)
+      round = Round.new("C Y")
+      expect(round.outcome).to eq(0)
 
-  #     round = Round.new("B X")
-  #     expect(round.outcome).to eq(0)
-  #   end
+      round = Round.new("B X")
+      expect(round.outcome).to eq(0)
+    end
 
-  #   it "computes the outcome of a round if it is a win" do
-  #     round = Round.new("A Y")
-  #     expect(round.outcome).to eq(6)
+    it "computes the outcome of a round if it is a win" do
+      round = Round.new("A Y")
+      expect(round.outcome).to eq(6)
 
-  #     round = Round.new("B Z")
-  #     expect(round.outcome).to eq(6)
+      round = Round.new("B Z")
+      expect(round.outcome).to eq(6)
 
-  #     round = Round.new("C X")
-  #     expect(round.outcome).to eq(6)
-  #   end
-  # end
+      round = Round.new("C X")
+      expect(round.outcome).to eq(6)
+    end
+  end
 
   describe ".score" do
     it "computes the score of a round" do
