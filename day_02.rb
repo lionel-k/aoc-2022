@@ -16,6 +16,7 @@ class Round
     "B" => "paper",
     "C" => "scissors"
   }.freeze
+
   MAPPING_SHAPE_PLAYER2 = {
     "X" => "rock",
     "Y" => "paper",
@@ -80,15 +81,17 @@ class Day02
   end
 
   def part1
-    score = 0
-    input.each { |round| score += Round.new(round).score }
-    score
+    compute_score
   end
 
   def part2
-    score = 0
-    input.each { |round| score += Round.new(round, part2: true).score }
-    score
+    compute_score(part2: true)
+  end
+
+  private
+
+  def compute_score(part2: false)
+    input.map { |round| Round.new(round, part2: part2).score }.sum
   end
 end
 
