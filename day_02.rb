@@ -5,7 +5,7 @@ require "rspec/autorun"
 
 # This class design a round of a Rock, Paper, Scissors game.
 class Round
-  attr_reader :player1, :player2, :input
+  attr_reader :player1, :player2, :round
 
   LOSS_SCORE = 0
   WIN_SCORE = 6
@@ -56,11 +56,11 @@ class Round
     @player1, @player2 = input.split(" ")
     @player1 = MAPPING_SHAPE[player1]
     @player2 = part2 ? PLAYER2_PART_2[player2][player1] : MAPPING_SHAPE[player2]
-    @input = "#{@player1} #{@player2}"
+    @round = "#{@player1} #{@player2}"
   end
 
   def outcome
-    OUTCOMES[input.to_sym]
+    OUTCOMES[round.to_sym]
   end
 
   def score
