@@ -7,41 +7,58 @@ require "rspec/autorun"
 class Round
   attr_reader :player1, :player2, :input
 
-  OUTCOMES = {
-    "A X": 3,
-    "B Y": 3,
-    "C Z": 3,
-    "A Z": 0,
-    "C Y": 0,
-    "B X": 0,
-    "A Y": 6,
-    "B Z": 6,
-    "C X": 6
+  LOSS_SCORE = 0
+  WIN_SCORE = 6
+  DRAW_SCORE = 3
+
+  MAPPING_SHAPE_PLAYER1 = {
+    "A" => "rock",
+    "B" => "paper",
+    "C" => "scissors"
+  }.freeze
+  MAPPING_SHAPE_PLAYER2 = {
+    "X" => "rock",
+    "Y" => "paper",
+    "Z" => "scissors"
   }.freeze
 
-  OUTCOMES_PART_2 = {
+  OUTCOMES = {
+    "rock rock": DRAW_SCORE,
+    "paper paper": DRAW_SCORE,
+    "scissors scissors": DRAW_SCORE,
+    "rock scissors": LOSS_SCORE,
+    "scissors paper": LOSS_SCORE,
+    "paper rock": LOSS_SCORE,
+    "rock paper": WIN_SCORE,
+    "paper scissors": WIN_SCORE,
+    "scissors rock": WIN_SCORE
+  }.freeze
+
+  PLAYER2_PART_2 = {
     "X" => {
-      "A" => "Z",
-      "B" => "X",
-      "C" => "Y"
+      "rock" => "scissors",
+      "paper" => "rock",
+      "scissors" => "paper"
     },
     "Y" => {
-      "A" => "X",
-      "B" => "Y",
-      "C" => "Z"
+      "rock" => "rock",
+      "paper" => "paper",
+      "scissors" => "scissors"
     },
     "Z" => {
-      "A" => "Y",
-      "B" => "Z",
-      "C" => "X"
+      "rock" => "paper",
+      "paper" => "scissors",
+      "scissors" => "rock"
     }
   }.freeze
 
-  SCORE_SHAPE = { "X" => 1, "Y" => 2, "Z" => 3 }.freeze
+  SCORE_SHAPE = { "rock" => 1, "paper" => 2, "scissors" => 3 }.freeze
 
   def initialize(input, part2: false)
     @player1, @player2 = input.split(" ")
-    @player2 = OUTCOMES_PART_2[player2][player1] if part2
+    @player1 = MAPPING_SHAPE_PLAYER1[player1]
+    @player2 =
+      part2 ? PLAYER2_PART_2[player2][player1] : MAPPING_SHAPE_PLAYER2[player2]
     @input = "#{@player1} #{@player2}"
   end
 
