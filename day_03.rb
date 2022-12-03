@@ -35,12 +35,12 @@ class Day03
       .map do |rucksack1, rucksack2, rucksack3|
         rucksack1 = rucksack1.split("")
 
-        common =
+        PRIORITIES[
           rucksack1.find do |char|
             rucksack1.count(char).positive? &&
               rucksack2.count(char).positive? && rucksack3.count(char).positive?
           end
-        PRIORITIES[common]
+        ]
       end
       .sum
   end
