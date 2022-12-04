@@ -14,25 +14,36 @@ class Day04
   def part1
     input
       .select do |line|
-        range1, range2 = line.split(",")
-        overlap(range1, range2) || overlap(range2, range1)
+        range1_start, range1_end, range2_start, range2_end =
+          line.split(",").map { |range| range.split("-").map(&:to_i) }.flatten
+        full_overlap(range1_start, range1_end, range2_start, range2_end) ||
+          full_overlap(range2_start, range2_end, range1_start, range1_end)
       end
       .count
   end
 
   def part2
+    input
+      .select do |line|
+        range1_start, range1_end, range2_start, range2_end =
+          line.split(",").map { |range| range.split("-").map(&:to_i) }.flatten
+        partial_overlap(range1_start, range1_end, range2_start, range2_end) ||
+          partial_overlap(range2_start, range2_end, range1_start, range1_end)
+      end
+      .count
   end
 
   private
 
-  def overlap(range1, range2)
-    range1_start, range1_end = range1.split("-")
-    range2_start, range2_end = range2.split("-")
+  # def split_range(range)
 
-    (
-      range1_start.to_i >= range2_start.to_i &&
-        range1_end.to_i <= range2_end.to_i
-    )
+  def full_overlap(range1_start, range1_end, range2_start, range2_end)
+    (range1_start >= range2_start && range1_end <= range2_end)
+  end
+
+  def partial_overlap(range1_start, range1_end, range2_start, range2_end)
+    range1_start <= range2_start && range2_start <= range1_end || # range2_start is in range1
+      range1_start <= range2_end && range2_end <= range1_end # range2_end is in range1
   end
 end
 
@@ -57,7 +68,7 @@ describe Day04 do
 
     it "returns the right value for the test file 2" do
       input = File.read("inputs/day_04_test_2.txt")
-      # expect(Day04.new(input).part2).to eq(nil)
+      expect(Day04.new(input).part2).to eq(841)
     end
   end
 end
