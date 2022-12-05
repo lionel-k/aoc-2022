@@ -18,13 +18,9 @@ class Day03
       .map do |rucksack|
         size = rucksack.size
         first = rucksack[0..size / 2 - 1].split("")
-        second = rucksack[size / 2..]
+        second = rucksack[size / 2..].split("")
 
-        PRIORITIES[
-          first.find do |char|
-            first.count(char).positive? && second.count(char).positive?
-          end
-        ]
+        PRIORITIES[(first & second).first]
       end
       .sum
   end
@@ -33,13 +29,10 @@ class Day03
     rucksacks
       .each_slice(3)
       .map do |rucksack1, rucksack2, rucksack3|
-        rucksack1 = rucksack1.split("")
-
         PRIORITIES[
-          rucksack1.find do |char|
-            rucksack1.count(char).positive? &&
-              rucksack2.count(char).positive? && rucksack3.count(char).positive?
-          end
+          (
+            rucksack1.split("") & rucksack2.split("") & rucksack3.split("")
+          ).first
         ]
       end
       .sum

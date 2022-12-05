@@ -35,8 +35,6 @@ class Day04
 
   private
 
-  # def split_range(range)
-
   def full_overlap(range1_start, range1_end, range2_start, range2_end)
     (range1_start >= range2_start && range1_end <= range2_end)
   end
