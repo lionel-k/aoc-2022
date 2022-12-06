@@ -13,25 +13,24 @@ class Day06
   end
 
   def part1
-    index = 0
-    result = nil
-    while index < input.length - 4 && result.nil?
-      marker = input[index..index + 3]
-      result = marker if Set.new(marker.chars).length == 4
-      index += 1
-    end
-    index + 3
+    find_marker(size: 4)
   end
 
   def part2
+    find_marker(size: 14)
+  end
+
+  private
+
+  def find_marker(size: 4)
     index = 0
     result = nil
-    while index < input.length - 14 && result.nil?
-      marker = input[index..index + 13]
-      result = marker if Set.new(marker.chars).length == 14
+    while index < input.length - size && result.nil?
+      marker = input[index..index + size - 1]
+      result = marker if Set.new(marker.chars).length == size
       index += 1
     end
-    index + 13
+    index + size - 1
   end
 end
 
