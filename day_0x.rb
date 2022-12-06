@@ -5,7 +5,10 @@ require "rspec/autorun"
 
 # Solution of Day 0X of AOC 2022
 class Day0X
+  attr_reader :input
+
   def initialize(input)
+    @input = input
   end
 
   def part1
